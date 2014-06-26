@@ -22,12 +22,24 @@ namespace TesoroQR.Controllers
 
         public ActionResult VerPista(int Id)
         {
+            if (Id == 5)
+            {
+               return RedirectToAction("Gano");
+            }
+            else
+            {
+                Pista pista = db.Pistas.Single(x => x.orden == Id);
+                return View(pista);
+            }
 
-            Pista pista = db.Pistas.Single(x => x.orden == Id);
 
 
-            return View(pista);
+           // return View();
+        }
 
+        public ActionResult Gano()
+        {
+            return View();
         }
 	}
 }

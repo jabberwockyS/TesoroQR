@@ -158,8 +158,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="CapaNegocio\Circuito.cs" />
+    <Compile Include="CapaNegocio\Juego.cs" />
+    <Compile Include="CapaNegocio\Partida.cs" />
+    <Compile Include="CapaNegocio\Pista.cs" />
+    <Compile Include="CapaNegocio\Usuario.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CaminoController.cs" />
+    <Compile Include="Controllers\CircuitoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PistasController.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,10 +238,15 @@
     <Content Include="Views\Prueba\Edit.cshtml" />
     <Content Include="Views\Prueba\Index.cshtml" />
     <Content Include="Views\Pistas\VerPista.cshtml" />
+    <Content Include="Views\Pistas\Gano.cshtml" />
+    <Content Include="Views\Circuito\Create.cshtml" />
+    <Content Include="Views\Circuito\Delete.cshtml" />
+    <Content Include="Views\Circuito\Details.cshtml" />
+    <Content Include="Views\Circuito\Edit.cshtml" />
+    <Content Include="Views\Circuito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Camino\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
