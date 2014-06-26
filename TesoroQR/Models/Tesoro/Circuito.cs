@@ -12,7 +12,7 @@ namespace TesoroQR.Models.Tesoro
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
 
-        public List<DetalleCircuito> DetallesCircuito { get; set; }
+        public List<Pista> Pistas { get; set; }
 
     }
 }

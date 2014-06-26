@@ -7,13 +7,13 @@ namespace TesoroQR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class InitPrimero : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitPrimero));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406251556042_InitPrimero"; }
+            get { return "201406261634175_Init"; }
         }
         
         string IMigrationMetadata.Source

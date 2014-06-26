@@ -21,5 +21,9 @@ namespace TesoroQR.Models.Tesoro
         [Required(ErrorMessage = "No ingresaste la Descripcion -.-'")]  
         [DataType(DataType.MultilineText)]
         public string Descripcion { get; set; }
+
+        public Circuito Circuito { get; set; }
+
+        public int orden { get; set; }
     }
 }

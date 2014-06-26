@@ -15,7 +15,7 @@
     <AssemblyName>TesoroQR</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -159,19 +159,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CaminoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PistasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201406251556042_InitPrimero.cs" />
-    <Compile Include="Migrations\201406251556042_InitPrimero.Designer.cs">
-      <DependentUpon>201406251556042_InitPrimero.cs</DependentUpon>
+    <Compile Include="Migrations\201406261634175_Init.cs" />
+    <Compile Include="Migrations\201406261634175_Init.Designer.cs">
+      <DependentUpon>201406261634175_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
     <Compile Include="Models\Account\IdentityModels.cs" />
-    <Compile Include="Models\Tesoro\DetalleCircuito.cs" />
     <Compile Include="Models\Tesoro\Circuito.cs" />
     <Compile Include="Models\Tesoro\Juego.cs" />
     <Compile Include="Models\Tesoro\JuegoDBContext.cs" />
@@ -227,9 +227,16 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Pistas\Index.cshtml" />
+    <Content Include="Views\Prueba\Create.cshtml" />
+    <Content Include="Views\Prueba\Delete.cshtml" />
+    <Content Include="Views\Prueba\Details.cshtml" />
+    <Content Include="Views\Prueba\Edit.cshtml" />
+    <Content Include="Views\Prueba\Index.cshtml" />
+    <Content Include="Views\Pistas\VerPista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Camino\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -239,8 +246,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406251556042_InitPrimero.resx">
-      <DependentUpon>201406251556042_InitPrimero.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406261634175_Init.resx">
+      <DependentUpon>201406261634175_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -261,7 +268,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54846</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54846/</IISUrl>
+          <IISUrl>http://localhost/TesoroQR</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

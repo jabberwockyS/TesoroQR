@@ -3,17 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TesoroQR.Models.Tesoro;
 
 namespace TesoroQR.Controllers
 {
     [Authorize]
     public class PistasController : Controller
     {
+
+        JuegoDBContext db = new JuegoDBContext();
         //
         // GET: /Pistas/
         public ActionResult Index()
         {
             return View();
+        }
+
+
+        public ActionResult VerPista(int Id)
+        {
+
+            Pista pista = db.Pistas.Single(x => x.orden == Id);
+
+
+            return View(pista);
+
         }
 	}
 }
