@@ -5,8 +5,8 @@ using System.Web;
 
 namespace TesoroQR.CapaNegocio
 {
-    public class Pista
+    public class BCircuito
     {
-            
+
     }
 }
