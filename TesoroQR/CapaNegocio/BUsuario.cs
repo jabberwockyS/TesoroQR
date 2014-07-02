@@ -7,5 +7,7 @@ namespace TesoroQR.CapaNegocio
 {
     public class BUsuario
     {
+
     }
+
 }

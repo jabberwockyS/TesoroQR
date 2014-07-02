@@ -1,24 +1,18 @@
 ﻿@model IEnumerable<TesoroQR.Models.Tesoro.Circuito>
+@using TesoroQR.Models.Tesoro;
 
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Lista de Caminos</h2>
+<h2>Gestion de Circuitos de la Partida de la fecha ... </h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Nueva Pista", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th></th>
     </tr>
@@ -26,13 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CircuitoID }) |

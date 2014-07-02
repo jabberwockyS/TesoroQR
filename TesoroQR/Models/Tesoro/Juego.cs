@@ -11,8 +11,8 @@ namespace TesoroQR.Models.Tesoro
         public DateTime HoraInicio { get; set; }
         public DateTime horaFin { get; set; }
 
-        public Usuario Juegador { get; set; }
-        public Circuito Circuito { get; set; }
+        public Usuario Jugador  { get; set; }
+        public Partida Partida { get; set; }
 
     }
 }

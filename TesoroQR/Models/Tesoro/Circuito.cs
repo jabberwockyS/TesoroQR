@@ -9,10 +9,11 @@ namespace TesoroQR.Models.Tesoro
     {
 
         public int CircuitoID { get; set; }
-        public DateTime Fecha { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
 
+
+
+        public Partida Partida { get; set; }
         public List<Pista> Pistas { get; set; }
 
     }

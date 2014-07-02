@@ -158,21 +158,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="CapaNegocio\Circuito.cs" />
-    <Compile Include="CapaNegocio\Juego.cs" />
-    <Compile Include="CapaNegocio\Partida.cs" />
-    <Compile Include="CapaNegocio\Pista.cs" />
-    <Compile Include="CapaNegocio\Usuario.cs" />
+    <Compile Include="CapaNegocio\BCircuito.cs" />
+    <Compile Include="CapaNegocio\BJuego.cs" />
+    <Compile Include="CapaNegocio\BPartida.cs" />
+    <Compile Include="CapaNegocio\BPista.cs" />
+    <Compile Include="CapaNegocio\BUsuario.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CircuitoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PartidaController.cs" />
     <Compile Include="Controllers\PistasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201406261634175_Init.cs" />
-    <Compile Include="Migrations\201406261634175_Init.Designer.cs">
-      <DependentUpon>201406261634175_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201407011709406_Init.cs" />
+    <Compile Include="Migrations\201407011709406_Init.Designer.cs">
+      <DependentUpon>201407011709406_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Models\Tesoro\Circuito.cs" />
     <Compile Include="Models\Tesoro\Juego.cs" />
     <Compile Include="Models\Tesoro\JuegoDBContext.cs" />
+    <Compile Include="Models\Tesoro\Partida.cs" />
     <Compile Include="Models\Tesoro\Pista.cs" />
     <Compile Include="Models\Tesoro\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,6 +196,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -239,6 +242,11 @@
     <Content Include="Views\Prueba\Index.cshtml" />
     <Content Include="Views\Pistas\VerPista.cshtml" />
     <Content Include="Views\Pistas\Gano.cshtml" />
+    <Content Include="Views\Partida\Create.cshtml" />
+    <Content Include="Views\Partida\Delete.cshtml" />
+    <Content Include="Views\Partida\Details.cshtml" />
+    <Content Include="Views\Partida\Edit.cshtml" />
+    <Content Include="Views\Partida\Index.cshtml" />
     <Content Include="Views\Circuito\Create.cshtml" />
     <Content Include="Views\Circuito\Delete.cshtml" />
     <Content Include="Views\Circuito\Details.cshtml" />
@@ -256,8 +264,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406261634175_Init.resx">
-      <DependentUpon>201406261634175_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407011709406_Init.resx">
+      <DependentUpon>201407011709406_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

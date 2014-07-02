@@ -13,7 +13,7 @@ namespace TesoroQR.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201406261634175_Init"; }
+            get { return "201407011709406_Init"; }
         }
         
         string IMigrationMetadata.Source

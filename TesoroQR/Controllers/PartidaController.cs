@@ -7,114 +7,125 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TesoroQR.Models.Tesoro;
+using TesoroQR.CapaNegocio;
 
 namespace TesoroQR.Controllers
 {
-    public class CircuitoController : Controller
+    public class PartidaController : Controller
     {
         private JuegoDBContext db = new JuegoDBContext();
 
-        // GET: /Circuito/
-        public ActionResult Index(int id)
+        // GET: /Partida/
+        public ActionResult Index()
         {
-
-            return View(db.Circuitos.Where(x=> x.CircuitoID == id).ToList());
+            return View(db.Partidas.ToList());
         }
 
-        // GET: /Circuito/Details/5
+        // GET: /Partida/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Circuito circuito = db.Circuitos.Find(id);
-            if (circuito == null)
+            Partida partida = db.Partidas.Find(id);
+            if (partida == null)
             {
                 return HttpNotFound();
             }
-            return View(circuito);
+            return View(partida);
         }
 
-        // GET: /Circuito/Create
+        // GET: /Partida/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Circuito/Create
+        // POST: /Partida/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="CircuitoID,Nombre")] Circuito circuito)
+        public ActionResult Create([Bind(Include="PartidaID,Descripcion,Fecha")] Partida partida)
         {
             if (ModelState.IsValid)
             {
-                db.Circuitos.Add(circuito);
-                db.SaveChanges();
+                BPartida Bpartida = new BPartida();
+                Bpartida.CrearPartida(partida.Fecha, partida.Descripcion);
                 return RedirectToAction("Index");
             }
 
-            return View(circuito);
+            return View(partida);
         }
 
-        // GET: /Circuito/Edit/5
+        // GET: /Partida/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Circuito circuito = db.Circuitos.Find(id);
-            if (circuito == null)
+            Partida partida = db.Partidas.Find(id);
+            if (partida == null)
             {
                 return HttpNotFound();
             }
-            return View(circuito);
+            return View(partida);
         }
 
-        // POST: /Circuito/Edit/5
+        // POST: /Partida/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="CircuitoID,Nombre")] Circuito circuito)
+        public ActionResult Edit([Bind(Include="PartidaID,Descripcion,Fecha")] Partida partida)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(circuito).State = EntityState.Modified;
+                db.Entry(partida).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(circuito);
+            return View(partida);
         }
 
-        // GET: /Circuito/Delete/5
+        // GET: /Partida/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Circuito circuito = db.Circuitos.Find(id);
-            if (circuito == null)
+            Partida partida = db.Partidas.Find(id);
+            if (partida == null)
             {
                 return HttpNotFound();
             }
-            return View(circuito);
+            return View(partida);
         }
 
-        // POST: /Circuito/Delete/5
+        // POST: /Partida/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Circuito circuito = db.Circuitos.Find(id);
-            db.Circuitos.Remove(circuito);
+            Partida partida = db.Partidas.Find(id);
+            db.Partidas.Remove(partida);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult ListarPistas(int id)
+        {
+            List<Pista> pistas = db.Pistas.Where(x => x.Circuito.CircuitoID == id).ToList();
+            return View(pistas);
+        }
+
+        
+       
+
 
         protected override void Dispose(bool disposing)
         {
@@ -124,5 +135,7 @@ namespace TesoroQR.Controllers
             }
             base.Dispose(disposing);
         }
+
+         
     }
 }

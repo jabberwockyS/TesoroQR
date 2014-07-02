@@ -12,5 +12,9 @@ namespace TesoroQR.Models.Tesoro
         public string Contraseña { get; set; }
         public string TipoUsuario { get; set; }
 
+
+        public List<Juego> Juegos { get; set; }
+
+
     }
 }
