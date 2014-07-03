@@ -234,7 +234,6 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Pistas\Index.cshtml" />
     <Content Include="Views\Prueba\Create.cshtml" />
     <Content Include="Views\Prueba\Delete.cshtml" />
     <Content Include="Views\Prueba\Details.cshtml" />
@@ -252,6 +251,7 @@
     <Content Include="Views\Circuito\Details.cshtml" />
     <Content Include="Views\Circuito\Edit.cshtml" />
     <Content Include="Views\Circuito\Index.cshtml" />
+    <Content Include="Views\Pistas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

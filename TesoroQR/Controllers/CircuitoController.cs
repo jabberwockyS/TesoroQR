@@ -17,8 +17,17 @@ namespace TesoroQR.Controllers
         // GET: /Circuito/
         public ActionResult Index(int id)
         {
+            Partida Partida = db.Partidas.Find(id);
+            List<Circuito> circuitos = db.Circuitos.Where(x => x.Partida.PartidaID == id).ToList();
 
-            return View(db.Circuitos.Where(x=> x.CircuitoID == id).ToList());
+            //foreach(Circuito cir in circuitos)
+            //{
+            //    cir.Partida = db.Partidas.Single(x => x.PartidaID == id);
+            //}
+
+
+            Session["partidaid"] = id;
+            return View(circuitos);
         }
 
         // GET: /Circuito/Details/5
@@ -39,7 +48,7 @@ namespace TesoroQR.Controllers
         // GET: /Circuito/Create
         public ActionResult Create()
         {
-            return View();
+            return View();  
         }
 
         // POST: /Circuito/Create
@@ -49,11 +58,23 @@ namespace TesoroQR.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="CircuitoID,Nombre")] Circuito circuito)
         {
+
             if (ModelState.IsValid)
             {
-                db.Circuitos.Add(circuito);
+                
+                int partid = Convert.ToInt32(Session["partidaid"]);
+               // db.Circuitos.Add(circuito);
+                Partida part = db.Partidas.Find(partid);
+                part.Circuito = new List<Circuito>();
+                part.Circuito = db.Circuitos.Where(x => x.Partida.PartidaID == partid).ToList();
+                part.Circuito.Add(circuito);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+
+                
+
+                return RedirectToAction("Index", new { id = partid });
+                
             }
 
             return View(circuito);

@@ -13,6 +13,7 @@ namespace TesoroQR.Models.Tesoro
 
 
 
+
         public Partida Partida { get; set; }
         public List<Pista> Pistas { get; set; }
 

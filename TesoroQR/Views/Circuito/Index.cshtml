@@ -4,10 +4,10 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Gestion de Circuitos de la Partida de la fecha ... </h2>
+<h2>Gestion de Circuitos de la Partida de la fecha  </h2>
 
 <p>
-    @Html.ActionLink("Agregar Nueva Pista", "Create")
+    @Html.ActionLink("Agregar Nuevo Circuito", "Create"@*, new { id = @Model.First().Partida.PartidaID }*@)
 </p>
 <table class="table">
     <tr>
@@ -25,7 +25,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CircuitoID }) |
             @Html.ActionLink("Details", "Details", new { id=item.CircuitoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CircuitoID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.CircuitoID }) |
+            @Html.ActionLink("Gestionar Pistas", "Index","Pistas", new { id = item.CircuitoID }, null)
         </td>
     </tr>
 }

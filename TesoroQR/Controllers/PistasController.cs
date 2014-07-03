@@ -14,14 +14,15 @@ namespace TesoroQR.Controllers
         JuegoDBContext db = new JuegoDBContext();
         //
         // GET: /Pistas/
-        public ActionResult Index()
+        public ActionResult Index( int id)
         {
-            return View();
+            return View(db.Pistas.Where(x=> x.Circuito.CircuitoID == id ).ToList());
         }
 
 
         public ActionResult VerPista(int Id)
         {
+
             if (Id == 5)
             {
                return RedirectToAction("Gano");
