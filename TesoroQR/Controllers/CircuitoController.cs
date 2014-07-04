@@ -104,9 +104,10 @@ namespace TesoroQR.Controllers
         {
             if (ModelState.IsValid)
             {
+                int partid = Convert.ToInt32(Session["partidaid"]);
                 db.Entry(circuito).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = partid });
             }
             return View(circuito);
         }
@@ -134,7 +135,9 @@ namespace TesoroQR.Controllers
             Circuito circuito = db.Circuitos.Find(id);
             db.Circuitos.Remove(circuito);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            int partid = Convert.ToInt32(Session["partidaid"]);
+            return RedirectToAction("Index", new { id = partid });
         }
 
         protected override void Dispose(bool disposing)

@@ -110,8 +110,6 @@ C:\Users\sergio\Desktop\TesoroQR\TesoroQR\bin\Microsoft.Owin.Security.MicrosoftA
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csprojResolveAssemblyReference.cache
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.dll
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.pdb
-C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.Migrations.Init.resources
-C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csproj.GenerateResource.Cache
 C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\bin\TesoroQR.dll.config
 C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\bin\TesoroQR.dll
 C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\bin\TesoroQR.pdb
@@ -169,3 +167,5 @@ C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\obj\Debug\TesoroQR.dll
 C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\obj\Debug\TesoroQR.pdb
 C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\obj\Debug\TesoroQR.Migrations.Init.resources
 C:\Users\sergio\Desktop\proyectos\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csproj.GenerateResource.Cache
+C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.Migrations.Init.resources
+C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csproj.GenerateResource.Cache

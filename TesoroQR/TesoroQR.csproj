@@ -171,13 +171,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407011709406_Init.cs" />
-    <Compile Include="Migrations\201407011709406_Init.Designer.cs">
-      <DependentUpon>201407011709406_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201407041527488_Init.cs" />
+    <Compile Include="Migrations\201407041527488_Init.Designer.cs">
+      <DependentUpon>201407041527488_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
     <Compile Include="Models\Account\IdentityModels.cs" />
+    <Compile Include="Models\Tesoro\Avance.cs" />
     <Compile Include="Models\Tesoro\Circuito.cs" />
     <Compile Include="Models\Tesoro\Juego.cs" />
     <Compile Include="Models\Tesoro\JuegoDBContext.cs" />
@@ -252,6 +253,10 @@
     <Content Include="Views\Circuito\Edit.cshtml" />
     <Content Include="Views\Circuito\Index.cshtml" />
     <Content Include="Views\Pistas\Index.cshtml" />
+    <Content Include="Views\Pistas\Create.cshtml" />
+    <Content Include="Views\Pistas\Delete.cshtml" />
+    <Content Include="Views\Pistas\Edit.cshtml" />
+    <Content Include="Views\Pistas\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,8 +269,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407011709406_Init.resx">
-      <DependentUpon>201407011709406_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407041527488_Init.resx">
+      <DependentUpon>201407041527488_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

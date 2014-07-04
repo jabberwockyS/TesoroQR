@@ -10,9 +10,10 @@ namespace TesoroQR.Models.Tesoro
     {
         public DbSet<Circuito> Circuitos { get; set; }
         public DbSet<Partida> Partidas { get; set; }
+        public DbSet<Avance> Avances { get; set; }
         
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pista> Pistas { get; set; }
-        public DbSet<Juego> Juego { get; set; }
+        public DbSet<Juego> Juegos { get; set; }
     }
 }
