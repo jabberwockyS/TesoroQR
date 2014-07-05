@@ -90,7 +90,9 @@ namespace TesoroQR.Controllers
             //aca controla que sea un codigo de final de camino
             if (Id == 5 || Id == 10 || Id == 15 || Id == 20)
             {
+
                return RedirectToAction("Gano");
+
             }
 
             //ahora controlemos cualquiera de las otras pista que no son finales!
