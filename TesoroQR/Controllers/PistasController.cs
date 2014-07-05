@@ -17,28 +17,30 @@ namespace TesoroQR.Controllers
         JuegoDBContext db = new JuegoDBContext();
         //
         // GET: /Pistas/
-        public ActionResult Index( int id)
+        public ActionResult Index(int id)
         {
             Session["CircuitoID"] = id;
-            return View(db.Pistas.Where(x=> x.Circuito.CircuitoID == id ).ToList());
+            return View(db.Pistas.Where(x => x.Circuito.CircuitoID == id).ToList());
         }
 
 
         public ActionResult VerPista(int Id)
         {
+
+            String nombreUsuario = User.Identity.Name;
+            Partida partida = db.Partidas.Single(x => x.Fecha.CompareTo(DateTime.Today) == 0);
+            List<Circuito> circuitosList = db.Circuitos.Where(x => x.Partida.PartidaID == partida.PartidaID).ToList();
+            Usuario usuario; //no lo cargo porque puede que ese usuario no exista
+
             //aca controla que sea un codigo de inicio de camino
-            if(Id == 1 || Id == 6 || Id == 11 || Id == 16)
+            if (Id == 1 || Id == 6 || Id == 11 || Id == 16)
             {
-                //si el usuario no existe
-                String nombreUsuario = User.Identity.Name;
-                Partida partida = db.Partidas.Single(x => x.Fecha.CompareTo(DateTime.Today) == 0);
-                Usuario usuario;
-               
+
 
                 //guardo el usuario si es que ya no existe
                 if (!db.Usuarios.Any(x => x.Nombre == nombreUsuario))
                 {
-                     usuario = new Usuario() { Nombre = nombreUsuario, TipoUsuario = "jugador" };
+                    usuario = new Usuario() { Nombre = nombreUsuario, TipoUsuario = "jugador" };
                     db.Usuarios.Add(usuario);
                     //guardo el usuario
                     db.SaveChanges();
@@ -48,90 +50,119 @@ namespace TesoroQR.Controllers
                     usuario = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
                 }
 
-                Juego juego = new Juego() { HoraInicio = DateTime.Now,horaFin = DateTime.Now, Jugador = usuario, Partida = partida };
+                Juego juego = new Juego() { HoraInicio = DateTime.Now, horaFin = DateTime.Now, Jugador = usuario, Partida = partida };
 
-                
+
                 //si la partida es la primera y no es el mismo dia(si es otro dia deberia solo registrar la partida)
-                if(!db.Juegos.Any(x=> x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0) )
+                if (!db.Juegos.Any(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0))
                 {
-                    
+
                     //agrego un el juego si es que no existe
-                    
+
                     db.Juegos.Add(juego);
 
                     //guardo la partida
                     db.SaveChanges();
                 }
 
-               
+
+                Circuito circuito = QueCircuito(Id, circuitosList);
+
+                //defino que circuito se corresponde con el orden de la psita pista
 
 
-                List<Circuito> circuitosList = db.Circuitos.Where(x=> x.Partida.PartidaID == partida.PartidaID).ToList();
-                Circuito circuito;
-
-                
-                if(Id==1)
-                    circuito = circuitosList[0];
-                else if(Id == 6)
-                    circuito = circuitosList[1];
-                else if(Id == 11)
-                    circuito = circuitosList[2];
-                else
-                    circuito = circuitosList[3];
-
-                Juego juegoAvance = db.Juegos.Single(x=> x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today)== 0);
-                db.Avances.Add(new Avance() { UltimaPista = 1, Circuito = circuito, Juego = juegoAvance  });
+                Juego juegoAvance = db.Juegos.Single(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0);
+                db.Avances.Add(new Avance() { UltimaPista = 1, Circuito = circuito, Juego = juegoAvance });
                 //guardo el avance
                 db.SaveChanges();
-                
-             
-            }
+                int orden = QueOrden(Id);
+                return View(db.Pistas.Single(x => x.Circuito.CircuitoID == circuito.CircuitoID && x.orden == orden));
 
+
+            }
             //aca controla que sea un codigo de final de camino
-            if (Id == 5 || Id == 10 || Id == 15 || Id == 20)
+            else if (Id == 5 || Id == 10 || Id == 15 || Id == 20)
             {
 
-               return RedirectToAction("Gano");
+                Usuario jugador = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
+                Juego juego = db.Juegos.Single(x => x.Jugador.UsuarioID == jugador.UsuarioID && x.Partida.PartidaID == partida.PartidaID);
+                Circuito circuito = QueCircuito(Id,circuitosList);
+                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == circuito.CircuitoID);
+                avance.UltimaPista = QueOrden(Id);
+                db.SaveChanges();
+                //aca falta registrar en avance que termino ese camino
+                return RedirectToAction("Gano");
+
+            }
+            //ahora controlemos cualquiera de las otras pista que no son finales!
+            else
+            {
+
+                
+                List<Circuito> circList = db.Circuitos.Where(x => x.Partida.PartidaID == partida.PartidaID).ToList();
+                Circuito circ = QueCircuito(Id,circuitosList);
+                int orden = QueOrden(Id);
+
+                Usuario jugador = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
+                Juego juego = db.Juegos.Single(x => x.Jugador.UsuarioID == jugador.UsuarioID && x.Partida.PartidaID == partida.PartidaID);
+                Circuito circuito = QueCircuito(Id, circuitosList);
+                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == circuito.CircuitoID);
+                avance.UltimaPista = orden;
+                db.SaveChanges();
+
+                Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == circ.CircuitoID && x.orden == orden);
+
+
+                return View(pista);
 
             }
 
-            //ahora controlemos cualquiera de las otras pista que no son finales!
 
-            Partida part = db.Partidas.Single(x => x.Fecha.CompareTo(DateTime.Today) == 0);
-            List<Circuito> circList = db.Circuitos.Where(x => x.Partida.PartidaID == part.PartidaID).ToList();
-            Circuito circ;
-            //arreglo el Id para que se corresponda con el orden teniendo en cuenta el circuito
-            if (Id > 15)
+
+
+            // return View();
+        }
+
+        private Circuito QueCircuito(int Id, List<Circuito> circList)
+		{
+            
+			Circuito circ;
+			if (Id > 15)
             {
-                Id = Id - 5;
                 circ = circList[3];
             }
             else if (Id > 10)
             {
-                Id = Id - 10;
+                
                 circ = circList[2];
             }
             else if (Id > 5)
             {
-                Id = Id - 5;
+               
                 circ = circList[1];
             }
             else
                 circ = circList[0];
 
-            
-            Pista pista = db.Pistas.Single(x=> x.Circuito.CircuitoID == circ.CircuitoID && x.orden == Id);
 
+            return circ;
+		
+		}
 
-            return View(pista);
+        private int QueOrden(int Id)
+        {
+            int orden = Id;
+            if (Id > 15)
+              orden = Id - 5;
+            else if (Id > 10)
+              orden = Id - 10;
+            else if (Id > 5)
+              orden = Id - 5;
 
+            return orden;
 
-           
-
-
-
-           // return View();
         }
+      
 
         public ActionResult Gano()
         {
