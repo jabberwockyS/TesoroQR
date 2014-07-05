@@ -31,96 +31,140 @@ namespace TesoroQR.Controllers
             Partida partida = db.Partidas.Single(x => x.Fecha.CompareTo(DateTime.Today) == 0);
             List<Circuito> circuitosList = db.Circuitos.Where(x => x.Partida.PartidaID == partida.PartidaID).ToList();
             Usuario usuario; //no lo cargo porque puede que ese usuario no exista
+            Circuito queCircuito = QueCircuito(Id,circuitosList);
+            int queOrden = QueOrden(Id);
 
             //aca controla que sea un codigo de inicio de camino
             if (Id == 1 || Id == 6 || Id == 11 || Id == 16)
             {
+                
+                    //guardo el usuario si es que ya no existe
+                    if (!db.Usuarios.Any(x => x.Nombre == nombreUsuario))
+                    {
+                        usuario = new Usuario() { Nombre = nombreUsuario, TipoUsuario = "jugador" };
+                        db.Usuarios.Add(usuario);
+                        //guardo el usuario
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        usuario = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
+                    }
+
+                    
+
+                    Juego juego;
+                    //si la partida es la primera y no es el mismo dia(si es otro dia deberia solo registrar la partida)
+                    if (!db.Juegos.Any(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0))
+                    {
+
+                        //agrego un el juego si es que no existe
+                        juego = new Juego() { HoraInicio = DateTime.Now, horaFin = DateTime.Now, Jugador = usuario, Partida = partida };
+                        db.Juegos.Add(juego);
+
+                        //guardo la partida
+                        db.SaveChanges();
+                    }
+                   
+                    juego = db.Juegos.Single(x=> x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today)== 0);
 
 
-                //guardo el usuario si es que ya no existe
-                if (!db.Usuarios.Any(x => x.Nombre == nombreUsuario))
-                {
-                    usuario = new Usuario() { Nombre = nombreUsuario, TipoUsuario = "jugador" };
-                    db.Usuarios.Add(usuario);
-                    //guardo el usuario
-                    db.SaveChanges();
-                }
-                else
-                {
-                    usuario = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
-                }
 
-                Juego juego = new Juego() { HoraInicio = DateTime.Now, horaFin = DateTime.Now, Jugador = usuario, Partida = partida };
+                     //aca controlo si ya no hay un avance registrado, de lo contrario quiere decir que no debo registrar la pista 1 del camino
+                    if (!db.Avances.Any(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.Juego.JuegoID == juego.JuegoID))
+                    {
 
-
-                //si la partida es la primera y no es el mismo dia(si es otro dia deberia solo registrar la partida)
-                if (!db.Juegos.Any(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0))
-                {
-
-                    //agrego un el juego si es que no existe
-
-                    db.Juegos.Add(juego);
-
-                    //guardo la partida
-                    db.SaveChanges();
-                }
-
-
-                Circuito circuito = QueCircuito(Id, circuitosList);
-
-                //defino que circuito se corresponde con el orden de la psita pista
-
-
-                Juego juegoAvance = db.Juegos.Single(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0);
-                db.Avances.Add(new Avance() { UltimaPista = 1, Circuito = circuito, Juego = juegoAvance });
-                //guardo el avance
-                db.SaveChanges();
-                int orden = QueOrden(Id);
-                return View(db.Pistas.Single(x => x.Circuito.CircuitoID == circuito.CircuitoID && x.orden == orden));
+                        Juego juegoAvance = db.Juegos.Single(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0);
+                        db.Avances.Add(new Avance() { UltimaPista = 1, Circuito = queCircuito, Juego = juegoAvance });
+                        //guardo el avance
+                        db.SaveChanges();
+                        int orden = QueOrden(Id);
+                        return View(db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == orden));
+                    }
+                    else
+                    {
+                        Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
+                        return RedirectToAction("PistaYaEncontrada", pista);
+                    }
+                    
 
 
             }
             //aca controla que sea un codigo de final de camino
             else if (Id == 5 || Id == 10 || Id == 15 || Id == 20)
             {
-
                 Usuario jugador = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
                 Juego juego = db.Juegos.Single(x => x.Jugador.UsuarioID == jugador.UsuarioID && x.Partida.PartidaID == partida.PartidaID);
-                Circuito circuito = QueCircuito(Id,circuitosList);
-                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == circuito.CircuitoID);
-                avance.UltimaPista = QueOrden(Id);
-                db.SaveChanges();
-                //aca falta registrar en avance que termino ese camino
-                return RedirectToAction("Gano");
+                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID);
+                Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
+
+
+                if (queOrden == avance.UltimaPista + 1)
+                {
+
+                    avance.UltimaPista = QueOrden(Id);
+                    db.SaveChanges();
+                    //aca falta registrar en avance que termino ese camino
+                    return RedirectToAction("Gano");
+                    
+                }
+                else if (queOrden <= avance.UltimaPista)
+                {
+                    return RedirectToAction("PistaYaEncontrada", pista);
+                }
+                else
+                {
+                    return RedirectToAction("Adelantado", pista);
+                }
+
+
 
             }
             //ahora controlemos cualquiera de las otras pista que no son finales!
             else
             {
 
-                
-                List<Circuito> circList = db.Circuitos.Where(x => x.Partida.PartidaID == partida.PartidaID).ToList();
-                Circuito circ = QueCircuito(Id,circuitosList);
-                int orden = QueOrden(Id);
-
                 Usuario jugador = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
                 Juego juego = db.Juegos.Single(x => x.Jugador.UsuarioID == jugador.UsuarioID && x.Partida.PartidaID == partida.PartidaID);
-                Circuito circuito = QueCircuito(Id, circuitosList);
-                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == circuito.CircuitoID);
-                avance.UltimaPista = orden;
-                db.SaveChanges();
-
-                Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == circ.CircuitoID && x.orden == orden);
+                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID);
+                Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
 
 
-                return View(pista);
+                if (queOrden == avance.UltimaPista + 1)
+                {
+                    avance.UltimaPista = queOrden;
+                    db.SaveChanges();
+
+                   
+
+
+                    return View(pista);
+                }
+                else if (queOrden <= avance.UltimaPista)
+                {
+                    return RedirectToAction("PistaYaEncontrada", pista);
+                }
+                else
+                {
+                    return RedirectToAction("Adelantado", pista);
+                }
 
             }
 
 
 
 
-            // return View();
+           
+        }
+
+        public ActionResult PistaYaEncontrada(Pista pista)
+        {
+            return View(pista);
+        }
+
+        public ActionResult Adelantado(Pista pista)
+        {
+            return View(pista);
         }
 
         private Circuito QueCircuito(int Id, List<Circuito> circList)

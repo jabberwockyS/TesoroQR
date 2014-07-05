@@ -257,6 +257,8 @@
     <Content Include="Views\Pistas\Delete.cshtml" />
     <Content Include="Views\Pistas\Edit.cshtml" />
     <Content Include="Views\Pistas\Details.cshtml" />
+    <Content Include="Views\Pistas\PistaYaEncontrada.cshtml" />
+    <Content Include="Views\Pistas\Adelantado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
