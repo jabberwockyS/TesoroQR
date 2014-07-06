@@ -9,8 +9,10 @@ using System.Web.Mvc;
 using TesoroQR.Models.Tesoro;
 using TesoroQR.CapaNegocio;
 
+
 namespace TesoroQR.Controllers
 {
+     [Authorize(Users="Admin")]
     public class PartidaController : Controller
     {
         private JuegoDBContext db = new JuegoDBContext();

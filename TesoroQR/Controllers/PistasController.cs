@@ -17,6 +17,8 @@ namespace TesoroQR.Controllers
         JuegoDBContext db = new JuegoDBContext();
         //
         // GET: /Pistas/
+
+        [Authorize(Users = "Admin")]
         public ActionResult Index(int id)
         {
             Session["CircuitoID"] = id;
@@ -213,6 +215,7 @@ namespace TesoroQR.Controllers
             return View();
         }
 
+        [Authorize(Users = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -228,6 +231,7 @@ namespace TesoroQR.Controllers
         }
 
         // GET: /Esta/Create
+        [Authorize(Users = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -238,6 +242,7 @@ namespace TesoroQR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult Create([Bind(Include = "PistaID,Nombre,Descripcion,orden")] Pista pista)
         {
             if (ModelState.IsValid)
@@ -253,6 +258,7 @@ namespace TesoroQR.Controllers
         }
 
         // GET: /Esta/Edit/5
+        [Authorize(Users = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -272,6 +278,7 @@ namespace TesoroQR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "Admin")]
         public ActionResult Edit([Bind(Include = "PistaID,Nombre,Descripcion,orden")] Pista pista)
         {
             if (ModelState.IsValid)
@@ -285,6 +292,7 @@ namespace TesoroQR.Controllers
         }
 
         // GET: /Esta/Delete/5
+        [Authorize(Users = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -300,6 +308,7 @@ namespace TesoroQR.Controllers
         }
 
         // POST: /Esta/Delete/5
+        [Authorize(Users = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

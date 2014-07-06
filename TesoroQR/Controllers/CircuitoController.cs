@@ -10,6 +10,7 @@ using TesoroQR.Models.Tesoro;
 
 namespace TesoroQR.Controllers
 {
+    [Authorize(Users = "Admin")]
     public class CircuitoController : Controller
     {
         private JuegoDBContext db = new JuegoDBContext();
