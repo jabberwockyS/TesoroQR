@@ -36,44 +36,47 @@ namespace TesoroQR.Controllers
             Circuito queCircuito = QueCircuito(Id,circuitosList);
             int queOrden = QueOrden(Id);
 
-            //aca controla que sea un codigo de inicio de camino
-            if (Id == 1 || Id == 6 || Id == 11 || Id == 16)
+
+            //guardo el usuario si es que ya no existe
+            if (!db.Usuarios.Any(x => x.Nombre == nombreUsuario))
             {
-                
-                    //guardo el usuario si es que ya no existe
-                    if (!db.Usuarios.Any(x => x.Nombre == nombreUsuario))
-                    {
-                        usuario = new Usuario() { Nombre = nombreUsuario, TipoUsuario = "jugador" };
-                        db.Usuarios.Add(usuario);
-                        //guardo el usuario
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        usuario = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
-                    }
+                usuario = new Usuario() { Nombre = nombreUsuario, TipoUsuario = "jugador" };
+                db.Usuarios.Add(usuario);
+                //guardo el usuario
+                db.SaveChanges();
+            }
+            else
+            {
+                usuario = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
+            }
 
-                    
-
-                    Juego juego;
+            
+                    Juego juegoNuevo;
                     //si la partida es la primera y no es el mismo dia(si es otro dia deberia solo registrar la partida)
                     if (!db.Juegos.Any(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0))
                     {
 
                         //agrego un el juego si es que no existe
-                        juego = new Juego() { HoraInicio = DateTime.Now, horaFin = DateTime.Now, Jugador = usuario, Partida = partida };
-                        db.Juegos.Add(juego);
+                        juegoNuevo = new Juego() { HoraInicio = DateTime.Now, horaFin = DateTime.Now, Jugador = usuario, Partida = partida };
+                        db.Juegos.Add(juegoNuevo);
 
                         //guardo la partida
                         db.SaveChanges();
                     }
                    
-                    juego = db.Juegos.Single(x=> x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today)== 0);
+                    juegoNuevo = db.Juegos.Single(x=> x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today)== 0);
+
+            //aca controla que sea un codigo de inicio de camino
+            if (Id == 1 || Id == 6 || Id == 11 || Id == 16)
+            {
+                
+                    
+
 
 
 
                      //aca controlo si ya no hay un avance registrado, de lo contrario quiere decir que no debo registrar la pista 1 del camino
-                    if (!db.Avances.Any(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.Juego.JuegoID == juego.JuegoID))
+                    if (!db.Avances.Any(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.Juego.JuegoID == juegoNuevo.JuegoID))
                     {
 
                         Juego juegoAvance = db.Juegos.Single(x => x.Jugador.Nombre == nombreUsuario && x.Partida.Fecha.CompareTo(DateTime.Today) == 0);
@@ -97,26 +100,33 @@ namespace TesoroQR.Controllers
             {
                 Usuario jugador = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
                 Juego juego = db.Juegos.Single(x => x.Jugador.UsuarioID == jugador.UsuarioID && x.Partida.PartidaID == partida.PartidaID);
-                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID);
-                Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
-
-
-                if (queOrden == avance.UltimaPista + 1)
+                if (db.Avances.Any(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID))
                 {
+                    Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID);
+                    Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
 
-                    avance.UltimaPista = QueOrden(Id);
-                    db.SaveChanges();
-                    //aca falta registrar en avance que termino ese camino
-                    return RedirectToAction("Gano");
-                    
-                }
-                else if (queOrden <= avance.UltimaPista)
-                {
-                    return RedirectToAction("PistaYaEncontrada", pista);
+
+                    if (queOrden == avance.UltimaPista + 1)
+                    {
+
+                        avance.UltimaPista = QueOrden(Id);
+                        db.SaveChanges();
+                        //aca falta registrar en avance que termino ese camino
+                        return RedirectToAction("Gano", pista);
+
+                    }
+                    else if (queOrden <= avance.UltimaPista)
+                    {
+                        return RedirectToAction("PistaYaEncontrada", pista);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Adelantado", pista);
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Adelantado", pista);
+                    return RedirectToAction("Index","Home",null);
                 }
 
 
@@ -128,28 +138,37 @@ namespace TesoroQR.Controllers
 
                 Usuario jugador = db.Usuarios.Single(x => x.Nombre == nombreUsuario);
                 Juego juego = db.Juegos.Single(x => x.Jugador.UsuarioID == jugador.UsuarioID && x.Partida.PartidaID == partida.PartidaID);
-                Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID);
-                Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
-
-
-                if (queOrden == avance.UltimaPista + 1)
+                if (db.Avances.Any(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID))
                 {
-                    avance.UltimaPista = queOrden;
-                    db.SaveChanges();
+                    Avance avance = db.Avances.Single(x => x.Juego.JuegoID == juego.JuegoID && x.Circuito.CircuitoID == queCircuito.CircuitoID);
 
-                   
+                    Pista pista = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == queOrden);
 
 
-                    return View(pista);
-                }
-                else if (queOrden <= avance.UltimaPista)
-                {
-                    return RedirectToAction("PistaYaEncontrada", pista);
+                    if (queOrden == avance.UltimaPista + 1)
+                    {
+                        avance.UltimaPista = queOrden;
+                        db.SaveChanges();
+
+
+
+
+                        return View(pista);
+                    }
+                    else if (queOrden <= avance.UltimaPista)
+                    {
+                        return RedirectToAction("PistaYaEncontrada", pista);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Adelantado", pista);
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Adelantado", pista);
+                    return RedirectToAction("Index", "Home", null);
                 }
+
 
             }
 
@@ -210,9 +229,10 @@ namespace TesoroQR.Controllers
         }
       
 
-        public ActionResult Gano()
+        public ActionResult Gano(Pista pista)
         {
-            return View();
+                
+            return View(pista);
         }
 
         [Authorize(Users = "Admin")]
