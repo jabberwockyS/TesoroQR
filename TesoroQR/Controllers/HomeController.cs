@@ -15,15 +15,20 @@ namespace TesoroQR.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "CODIGO ESCONDIDO";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Pagina de contacto";
 
+            return View();
+        }
+
+        public ActionResult ComoJugar()
+        {
             return View();
         }
     }

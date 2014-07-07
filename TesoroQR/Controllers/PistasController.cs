@@ -84,7 +84,10 @@ namespace TesoroQR.Controllers
                         //guardo el avance
                         db.SaveChanges();
                         int orden = QueOrden(Id);
-                        return View(db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == orden));
+                        Pista pistaSalida = db.Pistas.Single(x => x.Circuito.CircuitoID == queCircuito.CircuitoID && x.orden == orden);
+                        pistaSalida.Circuito = db.Circuitos.Single(x => x.Pistas.Any(y => y.PistaID == pistaSalida.PistaID));
+
+                        return View(pistaSalida);
                     }
                     else
                     {
@@ -231,6 +234,7 @@ namespace TesoroQR.Controllers
 
         public ActionResult Gano(Pista pista)
         {
+            pista.Circuito = db.Circuitos.Single(x => x.Pistas.Any(y => y.PistaID == pista.PistaID));
                 
             return View(pista);
         }

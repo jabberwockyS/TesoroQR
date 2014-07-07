@@ -40,3 +40,13 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.Rojo
+{
+   color:red; 
+}
+
+.Verde
+{
+    color:green;
+}
