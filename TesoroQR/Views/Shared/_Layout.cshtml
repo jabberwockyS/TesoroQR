@@ -26,6 +26,29 @@
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+
+                    @if(this.User.IsInRole("Admin"))
+                    {
+                    <li class="dropdown">
+                       
+                            <a class=" dropdown-toggle"  id="dropdownMenu1" href="#" data-toggle="dropdown">
+                                Administracion
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    @Html.ActionLink("Administrar Partidas", "Index", "Partida",null, new { role="menuitem" ,tabindex="-1"})
+                                </li>
+                                <li role="presentation">
+                                     @Html.ActionLink("Ver Avances", "ListarPartidas", "Informes", null, new { role = "menuitem", tabindex = "-1" })
+                                </li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                
+                            </ul>
+                      
+                    </li>
+                    }
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
