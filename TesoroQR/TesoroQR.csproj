@@ -164,7 +164,6 @@
     <Compile Include="CapaNegocio\BPista.cs" />
     <Compile Include="CapaNegocio\BUsuario.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CircuitoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformesController.cs" />
