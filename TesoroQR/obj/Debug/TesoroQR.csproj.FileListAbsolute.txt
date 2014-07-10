@@ -165,7 +165,7 @@ C:\Users\sergio\Desktop\TesoroQR\TesoroQR\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csprojResolveAssemblyReference.cache
-C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.Migrations.Init.resources
-C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csproj.GenerateResource.Cache
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.dll
 C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.pdb
+C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.Migrations.Init.resources
+C:\Users\sergio\Desktop\TesoroQR\TesoroQR\obj\Debug\TesoroQR.csproj.GenerateResource.Cache

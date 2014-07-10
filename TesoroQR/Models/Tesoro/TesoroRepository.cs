@@ -20,6 +20,9 @@ namespace TesoroQR.Models.Tesoro
         public List<Usuario> UsuariosPorPartida(int partidaID)
         {
             List<Usuario> usuarios = db.Usuarios.ToList();
+            List<Usuario> usuariosSalida = new List<Usuario>();
+
+            List<Juego> juegosPartida = db.Juegos.Where(x => x.Partida.PartidaID == partidaID).ToList();
 
            
 
@@ -27,7 +30,18 @@ namespace TesoroQR.Models.Tesoro
             {
                 List<Juego> juegos =db.Juegos.Where(x => x.Jugador.UsuarioID == usuario.UsuarioID).ToList();
 
-                usuario.Juegos = juegos;
+                foreach(Juego juegoj in juegos)
+                {
+                    foreach(Juego juegop in juegosPartida)
+                    {
+                        if(juegop.JuegoID == juegoj.JuegoID)
+                        {
+                            usuariosSalida.Add(usuario);
+                        }
+                    }
+                }
+
+                
                 
             }
 
@@ -37,7 +51,22 @@ namespace TesoroQR.Models.Tesoro
 
             
 
-            return usuarios;
+            return usuariosSalida;
+        }
+
+
+        public List<Avance> ListarAvancePorJugador(int jugadorID, int partidaID)
+        {
+            List<Avance> avances = new List<Avance>();
+
+            avances = db.Avances.Where(x => x.Juego.Jugador.UsuarioID == jugadorID && x.Juego.Partida.PartidaID == partidaID).ToList();
+
+            
+            
+            
+            
+            
+            return avances;
         }
 
 

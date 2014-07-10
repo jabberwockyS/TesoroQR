@@ -173,9 +173,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407041527488_Init.cs" />
-    <Compile Include="Migrations\201407041527488_Init.Designer.cs">
-      <DependentUpon>201407041527488_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201407100511284_Init.cs" />
+    <Compile Include="Migrations\201407100511284_Init.Designer.cs">
+      <DependentUpon>201407100511284_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
@@ -200,6 +200,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\Sergio.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -266,6 +267,7 @@
     <Content Include="Views\Home\ComoJugar.cshtml" />
     <Content Include="Views\Informes\ListarPartidas.cshtml" />
     <Content Include="Views\Informes\ListarJugadores.cshtml" />
+    <Content Include="Views\Informes\ListarAvancePorJugador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,8 +281,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407041527488_Init.resx">
-      <DependentUpon>201407041527488_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407100511284_Init.resx">
+      <DependentUpon>201407100511284_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

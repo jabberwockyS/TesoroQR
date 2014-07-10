@@ -25,8 +25,19 @@ namespace TesoroQR.Controllers
 
         public ActionResult ListarJugadores(int partidaID)
         {
-
+            Session["partidaID"] = partidaID;
             return View(repo.UsuariosPorPartida(partidaID));
         }
+
+
+        public ActionResult ListarAvancePorJugador(int jugadorID)
+        { 
+            int partidaID = Convert.ToInt32( Session["partidaID"]);
+
+
+
+            return View(repo.ListarAvancePorJugador(jugadorID, partidaID));
+        }
+
 	}
 }

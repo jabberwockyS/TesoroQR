@@ -8,6 +8,8 @@ namespace TesoroQR.Models.Tesoro
 {
     public class JuegoDBContext: DbContext
     {
+        
+      
         public DbSet<Circuito> Circuitos { get; set; }
         public DbSet<Partida> Partidas { get; set; }
         public DbSet<Avance> Avances { get; set; }
