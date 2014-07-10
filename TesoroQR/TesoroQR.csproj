@@ -173,9 +173,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407100511284_Init.cs" />
-    <Compile Include="Migrations\201407100511284_Init.Designer.cs">
-      <DependentUpon>201407100511284_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201407101753300_Init.cs" />
+    <Compile Include="Migrations\201407101753300_Init.Designer.cs">
+      <DependentUpon>201407101753300_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
@@ -212,6 +212,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -281,8 +282,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407100511284_Init.resx">
-      <DependentUpon>201407100511284_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407101753300_Init.resx">
+      <DependentUpon>201407101753300_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

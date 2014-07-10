@@ -61,7 +61,26 @@ namespace TesoroQR.Models.Tesoro
 
             avances = db.Avances.Where(x => x.Juego.Jugador.UsuarioID == jugadorID && x.Juego.Partida.PartidaID == partidaID).ToList();
 
-            
+
+            List<Circuito> circuitos = db.Circuitos.Where(x => x.Partida.PartidaID == partidaID).ToList();
+
+
+            foreach(Circuito circuito in circuitos)
+            {
+                List<Avance> avancesXCircuito = db.Avances.Where(x => x.Circuito.CircuitoID == circuito.CircuitoID).ToList();
+
+                foreach(Avance avanceXCirc in avancesXCircuito)
+                {
+                    foreach(Avance avance in avances)
+                    {
+                        if (avanceXCirc.AvanceID == avance.AvanceID)
+                            avance.Circuito = circuito;
+                    }
+                }
+            }
+
+
+                
             
             
             
