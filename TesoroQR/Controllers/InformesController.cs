@@ -7,22 +7,27 @@ using TesoroQR.Models.Tesoro;
 
 namespace TesoroQR.Controllers
 {
-    [Authorize(Roles="Admin")]
+     [Authorize]
     public class InformesController : Controller
     {
         TesoroRepository repo = new TesoroRepository();
         //
         // GET: /Informes/
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
+
+        [Authorize(Roles = "Admin")]
         public ActionResult ListarPartidas()
         {
             return View(repo.Partidas());
         }
 
+
+        [Authorize(Roles = "Admin")]
         public ActionResult ListarJugadores(int partidaID)
         {
             Session["partidaID"] = partidaID;
@@ -30,6 +35,8 @@ namespace TesoroQR.Controllers
         }
 
 
+
+        [Authorize(Roles = "Admin")]
         public ActionResult ListarAvancePorJugador(int jugadorID)
         { 
             int partidaID = Convert.ToInt32( Session["partidaID"]);
@@ -37,6 +44,15 @@ namespace TesoroQR.Controllers
 
 
             return View(repo.ListarAvancePorJugador(jugadorID, partidaID));
+        }
+
+       
+
+        public ActionResult VerMiAvance(string jugadorName)
+        {
+            Partida partida = repo.PartidaHoy();
+            Usuario jugador = repo.JugadorPorNombre(jugadorName);
+            return View(repo.ListarAvancePorJugador(jugador.UsuarioID, partida.PartidaID));
         }
 
 	}

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -40,13 +43,18 @@
                                     @Html.ActionLink("Administrar Partidas", "Index", "Partida",null, new { role="menuitem" ,tabindex="-1"})
                                 </li>
                                 <li role="presentation">
-                                     @Html.ActionLink("Ver Avances", "ListarPartidas", "Informes", null, new { role = "menuitem", tabindex = "-1" })
+                                     @Html.ActionLink("Ver Avance de los jugadores", "ListarPartidas", "Informes", null, new { role = "menuitem", tabindex = "-1" })
                                 </li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">otra cosa</a></li>
                                 
                             </ul>
                       
                     </li>
+                    }
+                    @if(Request.IsAuthenticated)
+                    {
+                       
+                        <li>@Html.ActionLink("Ver mis Avances", "VerMiAvance", "Informes", new {jugadorName = User.Identity.GetUserName()},null)</li>
                     }
                     
                 </ul>

@@ -80,7 +80,6 @@ namespace TesoroQR.Models.Tesoro
             }
 
 
-                
             
             
             
@@ -89,5 +88,14 @@ namespace TesoroQR.Models.Tesoro
         }
 
 
+        public Partida PartidaHoy()
+        {
+            return db.Partidas.Single(x => x.Fecha.CompareTo(DateTime.Today) == 0);
+        }
+
+        public Usuario JugadorPorNombre(string nombre)
+        {
+            return db.Usuarios.Single(x => x.Nombre == nombre);
+        }
     }
 }

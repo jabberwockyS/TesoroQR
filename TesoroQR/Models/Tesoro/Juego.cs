@@ -14,5 +14,6 @@ namespace TesoroQR.Models.Tesoro
         public Usuario Jugador  { get; set; }
         public Partida Partida { get; set; }
 
+
     }
 }
